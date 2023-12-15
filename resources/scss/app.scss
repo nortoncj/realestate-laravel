@@ -3,6 +3,8 @@
 @use '../css/base/variables' as *;
 @use '../css/layouts/main.layout' as *;
 @use '../css/components/header' as *;
+@use'../css/components/hero' as *;
+@use'../css/components/slider' as *;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

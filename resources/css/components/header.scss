@@ -1,0 +1,46 @@
+.header{
+    position: fixed;
+    background:linear-gradient(180deg, rgba(255,255,255,0.9822129535407913) 0%, rgba(255,255,255,0) 75%);
+    z-index:10;
+    padding: 20px 0;
+    width: 100%;
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__logo{
+        font-size: 2.3rem;
+        font-weight:400;
+        text-transform: uppercase;
+    }
+    &__menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__menu-link{
+        padding: 20px;
+        text-decoration: none;
+        &--active{
+            //color:#7b7b7b;
+            color:#9ed2c5;
+            font-weight: 500;
+        }
+    }
+    &__account{
+        display: flex;
+        align-items: center;
+    }
+    &__account-link{
+        width:30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #269ccc;
+        color:#269ccc;
+        margin-right: 1.5rem;
+    }
+}

@@ -1,0 +1,85 @@
+.slider__container{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100vh;
+    transition: 5s;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+
+    animation-name: animate;
+    animation-direction: alternate-reverse;
+    animation-play-state: running;
+    animation-timing-function: ease-in-out;
+    animation-duration: 30s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+.slider__container-outer{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9822129535407913) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,1) 100%);
+}
+
+.slider__container-details{
+    position: absolute;
+    Left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    h1{
+        font-size: 3em;
+
+        span{
+            color:#269ccc;
+        }
+    }
+
+}
+.slider__container-socials{
+
+    position: absolute;
+    display: flex;
+    padding: 0 1.5rem;
+    align-items: center;
+    flex-direction: row;
+    transform: rotate(270deg);
+    left:78%;
+    bottom:50%;
+    width: 40%;
+    height: 4rem;
+    i,svg{
+        padding: 0 0.3rem;
+        font-size: 20px;
+        transform: rotate(90deg);
+    }
+    hr {
+        width: 150px;
+        padding:0 4px;
+    }
+
+}
+@keyframes animate {
+    0%, 100%{
+        background-image: url("https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1200");
+    }
+    20%{
+        background-image: url("https://images.pexels.com/photos/1438832/pexels-photo-1438832.jpeg?auto=compress&cs=tinysrgb&w=1200");
+    }
+    40%{
+        background-image: url("https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1200");
+    }
+    60%{
+        background-image: url("https://images.pexels.com/photos/259593/pexels-photo-259593.jpeg?auto=compress&cs=tinysrgb&w=1200");
+    }
+    80%{
+        background-image: url("https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1200");
+    }
+}
