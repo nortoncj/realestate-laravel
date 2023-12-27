@@ -12,6 +12,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300;1,400&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap');
 :root,
 [data-bs-theme=light] {
     --bs-blue: #007bff;
@@ -79,8 +80,10 @@
     --bs-dark-border-subtle: #adb5bd;
     --bs-white-rgb: 255, 255, 255;
     --bs-black-rgb: 0, 0, 0;
-    --bs-font-sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-font-sans-serif: "Montserrat";
+    --bs-font-monospace:"Poppins";
+    /*--bs-font-sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
+    /*--bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;*/
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 1rem;

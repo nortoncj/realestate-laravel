@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PropertyType;
 use App\Models\Amenities;
+use App\Models\Status;
 
 class PropertyTypeController extends Controller
 {
@@ -135,6 +136,72 @@ class PropertyTypeController extends Controller
 
         $notification = array(
             'message' => 'Property Amenity Deleted!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }// End Method
+
+
+
+
+    /******* Property Status **************/
+
+    public function AllStatus()
+    {
+        $status = Status::latest()->get();
+        return view('backend.status.all_status',compact('status'));
+    }// End Method
+
+    public function AddStatus()
+    {
+        $amenities = Status::latest()->get();
+        return view('backend.status.add_status');
+    }// End Method
+
+    public function StoreStatus(Request $request)
+    {
+
+        Status::insert([
+            'status_name' => $request->status_name,
+
+        ]);
+
+        $notification = array(
+            'message' => 'Property Status Saved!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.status')->with($notification);
+    }// End Method
+
+    public  function EditStatus($id)
+    {
+        $status = Status::findOrFail($id);
+        return view('backend.status.edit_status',compact('status'));
+    }// End Method
+
+    public  function UpdateStatus(Request $request){
+        $pid = $request->id;
+
+        Status::findOrFail($pid)->update([
+            'status_name' => $request->status_name,
+
+        ]);
+
+        $notification = array(
+            'message' => 'Property Status Updated!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.status')->with($notification);
+    }// End Method
+
+    public  function DeleteStatus($id){
+        Status::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Property Status Deleted!',
             'alert-type' => 'success'
         );
 

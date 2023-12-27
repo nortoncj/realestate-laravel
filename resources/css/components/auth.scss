@@ -1,0 +1,22 @@
+$blue:#0a2463;
+$light-blue:#3e92cc;
+$pink:#d8315b;
+$black:#1e1b18;
+$white:#fffaff;
+.auth-page__input{
+    font-family: Poppins;
+  background: $black !important;
+    color: $white;
+    font-weight: 600;
+
+    transition: all .2s ease-in-out;
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 40px;
+    width: 100%;
+    &:hover{
+        background: $blue !important;
+
+    }
+}

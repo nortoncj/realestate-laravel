@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-            Real<span>Estate</span>
+            Data<span>Door</span>
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
@@ -21,7 +21,7 @@
             <li class="nav-item nav-category">Real Estate</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Property Type</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -37,10 +37,27 @@
                     </ul>
                 </div>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="home"></i>
+                    <span class="link-title">Property Status</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="emails">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('all.status')}}" class="nav-link">All Statuses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('add.status')}}" class="nav-link">Add Type</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                    <i class="link-icon" data-feather="star"></i>
                     <span class="link-title"> Amenities</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -56,14 +73,57 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                    <i class="link-icon" data-feather="home"></i>
+                    <span class="link-title"> Property Listings</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="emails">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('all.listing')}}" class="nav-link">All Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('add.listing')}}" class="nav-link">Add Listing</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
 
             <li class="nav-item">
                 <a href="pages/apps/calendar.html" class="nav-link">
-                    <i class="link-icon" data-feather="calendar"></i>
-                    <span class="link-title">Calendar</span>
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Package History</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">Components</li>
+            <li class="nav-item">
+                <a href="pages/apps/calendar.html" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Package History</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Testimonial Manage </span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="message">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('all.type')}}" class="nav-link">All Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('add.type')}}" class="nav-link">Add Type</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item nav-category">Property Message</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
                     <i class="link-icon" data-feather="feather"></i>
@@ -86,7 +146,7 @@
             <li class="nav-item nav-category">Role & Permission</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false" aria-controls="advancedUI">
-                    <i class="link-icon" data-feather="anchor"></i>
+                    <i class="link-icon" data-feather="lock"></i>
                     <span class="link-title">Role & Permission</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -96,7 +156,7 @@
                             <a href="{{route('all.permission')}}" class="nav-link">All Permission</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/advanced-ui/owl-carousel.html" class="nav-link">Owl carousel</a>
+                            <a href="{{route('add.permission')}}" class="nav-link">Add Permission</a>
                         </li>
 
                     </ul>

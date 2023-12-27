@@ -1,4 +1,4 @@
-<!doctype html>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -10,15 +10,20 @@
     <meta name="author" content="Chris Norton">
     <meta name="keywords" content="Real Estate, Home, Homes, Houses, House, Property, Properties, First Time Home buyer">
 
-    <title>Admin Dashboard - Real Estate</title>
+    <title>DataDoor | @yield('page-title')</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap" rel="stylesheet">
     <!-- End fonts -->
 
     <link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/fontawesome-pro/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/easymde/easymde.min.css') }}">
+
 
     <!-- core:css -->
     <link rel="stylesheet" href="{{ asset('backend/assets/vendors/core/core.css') }}">
@@ -26,6 +31,8 @@
 
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/dropify/dist/dropify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/select2/select2.min.css') }}">
     <!-- End plugin css for this page -->
 
     <!-- inject:css -->
@@ -89,6 +96,14 @@
 
 <!-- Custom js for this page -->
 <script src="{{ asset('backend/assets/js/dashboard-light.js ') }}"></script>
+<script src="{{ asset('backend/assets/vendors/select2/select2.min.js ') }}"></script>
+<script src="{{ asset('backend/assets/js/select2.js ') }}"></script>
+<script src="{{ asset('backend/assets/js/dropify.js') }}"></script>
+<script src="{{ asset('backend/assets/js/inputmask.js ') }}"></script>
+\
+<script src="{{ asset('backend/assets/vendors/easymde/easymde.min.js ') }}"></script>
+<script src="{{ asset('backend/assets/js/easymde.js') }}"></script>
+
 <!-- End custom js for this page -->
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

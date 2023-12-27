@@ -1,4 +1,12 @@
-<x-guest-layout>
+@extends('layouts.main')
+@section('page-title','DataDoor | Register')
+@section('content')
+    <body class="antialiased">
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+        <div class="">
+            <a class="header__logo" href="/">Data<span class="header__logo--title">Door</span></a>
+        </div>
+        <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -39,14 +47,19 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button class="ms-4 w-full">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+        </div>
+    </div>
+    </body>
+@endsection

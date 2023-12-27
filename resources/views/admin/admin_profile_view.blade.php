@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label"></label>
-                                    <img class="wd-80 rounded-circle" id="showImage" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="profile">
+                                    <img class="wd-80 rounded-circle" id="showImage" src="{{ (!empty($profileData->photo)) ? url('upload/listing/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="profile">
                                 </div>
 
 

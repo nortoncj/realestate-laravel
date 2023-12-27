@@ -48,8 +48,8 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 0, 0, 0;
   --bs-body-bg-rgb: 249, 250, 251;
-  --bs-font-sans-serif: "Roboto", Helvetica, sans-serif;
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-font-sans-serif: "Montserrat";
+    --bs-font-monospace: "Poppins";
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 0.875rem;
@@ -21692,8 +21692,8 @@ div.apexcharts-canvas .apexcharts-yaxistooltip-right:after {
 }
 div.apexcharts-canvas .apexcharts-tooltip-marker {
   /*rtl:raw:
-  margin-right: 0; 
-  margin-left: 10px; 
+  margin-right: 0;
+  margin-left: 10px;
   */
 }
 
@@ -22413,7 +22413,7 @@ div.tox .tox-dialog__body {
 
 .wizard > .actions {
   /*rtl:raw:
-    text-align: left; 
+    text-align: left;
   */
 }
 

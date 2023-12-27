@@ -5,6 +5,13 @@
 @use '../css/components/header' as *;
 @use'../css/components/hero' as *;
 @use'../css/components/slider' as *;
+@use'../css/components/auth' as *;
+@use'../css/pages/listings' as *;
+@use'../css/pages/single-listing' as *;
+@use'../css/pages/saved-listings' as *;
+@use'../css/pages/show-status' as *;
+@use'../css/layouts/account' as *;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
