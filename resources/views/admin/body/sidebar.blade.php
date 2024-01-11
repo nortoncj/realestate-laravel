@@ -20,12 +20,12 @@
             </li>
             <li class="nav-item nav-category">Real Estate</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                <a class="nav-link" data-bs-toggle="collapse" href="#type" role="button" aria-expanded="false" aria-controls="type">
                     <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Property Type</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="emails">
+                <div class="collapse" id="type">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{route('all.type')}}" class="nav-link">All Types</a>
@@ -38,12 +38,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                <a class="nav-link" data-bs-toggle="collapse" href="#status" role="button" aria-expanded="false" aria-controls="status">
                     <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Property Status</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="emails">
+                <div class="collapse" id="status">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{route('all.status')}}" class="nav-link">All Statuses</a>
@@ -56,12 +56,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false" aria-controls="amenities">
                     <i class="link-icon" data-feather="star"></i>
                     <span class="link-title"> Amenities</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="emails">
+                <div class="collapse" id="amenities">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{route('all.amenities')}}" class="nav-link">All Amenities</a>
@@ -74,12 +74,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+                <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false" aria-controls="emails">
                     <i class="link-icon" data-feather="home"></i>
                     <span class="link-title"> Property Listings</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="emails">
+                <div class="collapse" id="property">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{route('all.listing')}}" class="nav-link">All Listing</a>

@@ -5,7 +5,7 @@
             <h2>
                 Open the door to smarter real estate decisions</h2>
         </div>
-        <div class="slider__container-socials">
+        <div class="slider__container-socials hidden lg:flex ">
             <div class="slider__container-socials"></div>
             <hr class="text-[#269ccc]" />
             <h6>Get Connected</h6>

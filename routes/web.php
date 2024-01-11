@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
-//use App\Http\Controllers\UserController; add
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 //use App\Http\Middleware\RedirectIfAuthenticated;add
@@ -30,23 +30,7 @@ use App\Http\Controllers\Backend\RoleController;
 |
 */
 
-Route::get('/', function () {
-    return view('pages/home');
-});
 
-// Show Single Listings
-Route::get('/listing/{slug}/{id}', function () {
-    return view('pages/single-listing');
-});
-// Show All Listings
-Route::get('/{property_type}/{listing_type}/{city}', function () {
-    return view('pages/listings');
-
-})->name('listings');
-Route::get('/account/saved', function () {
-    return view('pages/saved-listings');
-
-})->name('saved-listings');
 
 
 // User Showing Status
@@ -54,10 +38,25 @@ Route::get('/account/show-status', function () {
     return view('pages/show-status');
 });
 
-//    Profile Routes
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+
+// User Routes
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    User Profile Routes
+Route::get('/',[UserController::class, "Index"]);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/account', [UserController::class, 'Index'])->name('user.profile');
+    Route::get('/account/settings', [UserController::class, 'Settings'])->name('user.settings');
+    Route::post('/account/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
+    Route::get('/account/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
+    Route::post('/account/update/password', [UserController::class, 'UserUpdatePassword'])->name('user.update.password');
+    Route::get('/account/logout', [UserController::class, 'UserLogout'])->name('user.logout');
+});
+
+
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -70,12 +69,11 @@ Route::middleware(['auth','role:admin'])->group(function () {
 //    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 //});
-//
-//Route::middleware(['auth'])->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
+
+Route::get('/account', function () {
+    return view('user.profile');
+})->middleware(['auth', 'verified'])->name('user.profile');
+
 
 require __DIR__.'/auth.php';
 
@@ -136,13 +134,13 @@ Route::middleware(['auth','role:admin'])->group(function() {
 
     // Property All Routes
     Route::controller(PropertyController::class)->group(function (){
-        Route::get('/all/listing','AllListing')->name('all.listing');
-        Route::get('/add/listing','AddListing')->name('add.listing');
+        Route::get('/all/listings','AllListing')->name('all.listing');
+        Route::get('/add/listings','AddListing')->name('add.listing');
+        Route::post('/store/listings','StoreListing')->name('store.listing');
 
-        Route::post('/store/listing','StoreListing')->name('store.listing');
-        Route::get('/edit/listing/{id}','EditListing')->name('edit.listing');
-        Route::post('/update/listing','UpdateListing')->name('update.listing');
-        Route::get('/delete/listing/{id}','DeleteListing')->name('delete.listing');
+        Route::get('/edit/listings/{id}','EditListing')->name('edit.listing');
+        Route::post('/update/listings','UpdateListing')->name('update.listing');
+        Route::get('/delete/listings/{id}','DeleteListing')->name('delete.listing');
     });
 
     // Permissions All Routes
@@ -160,5 +158,32 @@ Route::middleware(['auth','role:admin'])->group(function() {
 }); // End Admin Middleware
 
 
+Route::get('/', function () {
+    return view('pages/home');
+});
 
+Route::get('/about', function () {
+    return view('pages/about');
+});
+
+Route::get('/contact', function () {
+    return view('pages/contact');
+});
+Route::get('/blog', function () {
+    return view('pages/blog');
+});
+
+// Show Single Listings
+Route::get('/listing/{slug}/{id}', function () {
+    return view('pages/single-listing');
+});
+// Show All Listings
+Route::get('/{property_type}/{listing_type}/{city}', function () {
+    return view('pages/listings');
+
+})->name('listings');
+Route::get('/account/saved', function () {
+    return view('pages/saved-listings');
+
+})->name('saved-listings');
 

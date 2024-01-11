@@ -1,6 +1,8 @@
 <?php
 namespace App\Helper;
 
+use App\Models\PropertyType;
+
 class Helper {
 public static function slugify($text, string $divider = '-')
 {

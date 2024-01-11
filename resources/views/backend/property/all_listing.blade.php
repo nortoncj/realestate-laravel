@@ -24,8 +24,8 @@
                                     <th>Property Type</th>
                                     <th>Sale Type</th>
                                     <th>City</th>
+                                    <th>State</th>
                                     <th>Thumbnail</th>
-                                    <th>Code</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -34,21 +34,25 @@
                                 @foreach($listing as $key => $item)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{$item->status_name}}</td>
-                                    <td>Property Type</td>
-                                    <td>Buy</td>
-                                    <td>Orlando</td>
-                                    <td>Image</td>
-                                    <td>PC0077</td>
-                                    <td>Active</td>
+                                    <td>{{$item->property_name}}</td>
+                                    <td>{{ $item->ptypes_id}}</td>
+                                    <td>For {{$item->property_status}}</td>
+                                    <td>{{$item->city}}</td>
+                                    <td>{{$item->state}}</td>
+                                    <td> <img style="width:70px; height: 40px;" src="{{asset($item->property_thumbnail)}}" > </td>
+                                    <td> {{ $item->status == 0 ?   '<span class="badge rounded-pill bg-danger">Inactive"</span>' : '<span class="badge rounded-pill bg-sucess"> Active </span>' }}</td>
                                     <td>
-                                        <a href="{{ route('edit.listing', $item->id) }}" class="btn btn-info">View</a>
+
+                                        <a href="{{ route('edit.listing', ['slug' => $item->slug, 'id' => $item->id]) }}" class="btn btn-info">View</a>
                                         <a href="{{ route('edit.listing', $item->id) }}" class="btn btn-warning">Edit</a>
+
                                         <a href="{{ route('delete.listing', $item->id) }}" id="delete" class="btn btn-danger">Delete</a>
                                     </td>
 
                                 </tr>
+
                                 @endforeach
+
                                 </tbody>
                             </table>
                         </div>

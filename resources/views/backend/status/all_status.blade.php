@@ -1,4 +1,5 @@
 @extends('admin.admin_dashboard')
+@section('page-title','Status')
 @section('admin')
     <div class="page-content">
 
