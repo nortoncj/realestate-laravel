@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Add Property</h6>
+                            <h6 class="card-title">Add Property Listing</h6>
 
                             <form action="{{route('store.listing')}}" method="post" id="myForm" enctype="multipart/form-data">
                                 @csrf
@@ -194,7 +194,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group mb-3">
                                             <label  class="form-label">Agent</label>
-                                            <select name="agent" id="exampleFormControlSelect1" class="form-select">
+                                            <select name="agent_id" id="exampleFormControlSelect1" class="form-select">
                                                 <option selected disabled> Select Agent</option>
                                                 @foreach($active_agent as $key => $item)
                                                     <option value="{{$key}}" class="">{{$item->name}}</option>
@@ -239,7 +239,7 @@
                                             <div class="form-group mb-3 card">
                                                 <div class="card-body">
                                                     <label  class="form-label card-title">Short Description</label>
-                                                    <textarea id="maxlength-textarea" class="form-control resize-none" maxlength="100" rows="4" style="resize: none" placeholder="This textarea has a limit of 100 chars."></textarea>
+                                                    <textarea name="short_desc" id="maxlength-textarea" class="form-control resize-none" maxlength="100" rows="4" style="resize: none" placeholder="This textarea has a limit of 100 chars."></textarea>
                                                 </div></div>
                                         </div>
 
@@ -270,7 +270,7 @@
                                                 <label class="form-label row" for="checkInline3">
                                                     Featured Property
                                                 </label>
-                                                <input type="checkbox" name="skill_check" class="form-check-input" id="checkInline3" value="1">
+                                                <input type="checkbox" name="is_featured" class="form-check-input" id="checkInline3" value="1">
 
                                             </div>
                                         </div>
@@ -279,7 +279,7 @@
                                                 <label class="form-label row" for="checkInline3">
                                                     Hot Property
                                                 </label>
-                                                <input type="checkbox" name="skill_check" class="form-check-input" value="1" id="checkInline3">
+                                                <input type="checkbox" name="is_hot" class="form-check-input" value="1" id="checkInline3">
 
                                             </div>
                                         </div>

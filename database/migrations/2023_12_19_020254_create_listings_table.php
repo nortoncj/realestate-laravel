@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('is_hot')->nullable();
             $table->integer('agent_id')->nullable();
             $table->string('status')->default(0);
-
+            $table->string('property_code');
             $table->timestamps();
 
 
