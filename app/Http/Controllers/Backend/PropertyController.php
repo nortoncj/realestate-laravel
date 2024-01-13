@@ -14,7 +14,7 @@ use App\Models\Amenities;
 use App\Models\Status;
 use App\Helper\Helper;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
@@ -61,11 +61,11 @@ class PropertyController extends Controller
             $img = $manager->read($request->file('property_thumbnail'));
             $img = $img->resize(370,250);
 
-            $img->toJpeg(80)->save(base_path('public/upload/listing/thumbnail'.$name_gen));
+            $img->toJpeg(80)->save(base_path('public/upload/listing/thumbnail/'.$name_gen));
             $save_url = 'upload/listing/thumbnail/'.$name_gen;
 
             $listing_id = Listing::insertGetId([
-                'ptype_id' => $request->ptype_id,
+                'ptype_id' => $request->property_type,
                 'amenities_id' => $amenities,
                 'property_name' => $request->property_name,
                 'property_slug' => Helper::slugify("{$request->property_name}-{$request->address}-{$request->address2}-{$request->city}-{$request->state}-{$request->zip_code}"),
@@ -81,10 +81,9 @@ class PropertyController extends Controller
                 'garage' => $request->garage,
                 'garage_size'  => $request->garage_size,
                 'property_size'  => $request->property_size,
-                'property_type'  => $request->property_type,
-                'property_video'  => $request->property_video,
+                'property_video'  => $request->video,
                 'address'  => $request->address,
-                'address 2'  => $request->address2,
+                'address2'  => $request->address2,
                 'city'  => $request->city,
                 'state'  => $request->state,
                 'zip'  => $request->zip,
@@ -105,19 +104,21 @@ class PropertyController extends Controller
         // Insert Multiple Images
         if ($request->file('multi_img')) {
             $manager = new ImageManager(new Driver());
-            $images = $request->file('multi_img');
-            $image = $manager->read($images);
+            $image = $request->file('multi_img');
+
+
+
 
             foreach($image as $img) {
                 $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+               $make_img = $manager->read($img);
+                $make_img = $make_img->resize(770,520);
 
-                $img = $img->resize(770,520);
-
-                $img->toJpeg(80)->save(base_path('public/upload/listing/multi-image'.$make_name));
+                $make_img->toJpeg(80)->save(base_path('public/upload/listing/multi-image/'.$make_name));
                 $uploadPath = 'upload/listing/multi-image/'.$make_name;
 
                 MultiImage::insert([
-                    'property_id' => $property_id,
+                    'property_id' => $listing_id,
                     'photo_name' => $uploadPath,
                     'created_at' => Carbon::now(),
                 ]);
@@ -125,30 +126,21 @@ class PropertyController extends Controller
 
             // End Multiple Image Upload //
 
+//            Facilities Add
 
+            $facilities= Count($request->facility_name);
 
-            $img->toJpeg(80)->save(base_path('public/upload/listing/thumbnail'.$name_gen));
-            $save_url = 'upload/listing/thumbnail/'.$name_gen;
+            if($facilities != NULL) {
+                for($i=0; $i < $facilities; $i++){
+                    $fcount = new Facility();
+                    $fcount->property_id = $listing_id;
+                    $fcount->facility_name = $request->facility_name[$i];
+                    $fcount->distance = $request->distance[$i];
+                    $fcount->save();
+                }
+            }
+
         }
-
-
-
-        $listing = new Listing();
-        $listing->property_name = $request->get('property_name');
-        $listing->sale_type = $request->get('sale_type');
-        $listing->address = $request->get('address');
-        $listing->address2 = $request->get('address2');
-        $listing->city = $request->get('city');
-        $listing->state = $request->get('state');
-        $listing->zip_code = $request->get('zip_code');
-        $listing->property_types = $request->get('property_types');
-        $listing->bedrooms = $request->get('bedrooms');
-        $listing->bathrooms = $request->get('bathrooms');
-        $listing->property_size = $request->get('property_size');
-//        create new slug address
-        $listing->property_slug = Helper::slugify("{$request->property_name}-{$request->address}-{$request->address2}-{$request->city}-{$request->state}-{$request->zip_code}");
-
-        $listing->save();
 
         $notification = array(
             'message' => 'Property Listing Saved!',
@@ -201,12 +193,4 @@ class PropertyController extends Controller
 
 }
 
-//        foreach($request->inputs as $key => $value){
-//            Listing::create($value);
-//        }
-//        Listing::insert([
-////            'inputs.*.facilities' => $request->facilities,
-////            'inputs.*.distance' => $request->distance,
-//
-//
-//        ]);
+

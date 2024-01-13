@@ -35,12 +35,18 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{$item->property_name}}</td>
-                                    <td>{{ $item->ptypes_id}}</td>
+                                    <td>{{ $item->ptype_id}}</td>
                                     <td>For {{$item->property_status}}</td>
                                     <td>{{$item->city}}</td>
                                     <td>{{$item->state}}</td>
-                                    <td> <img style="width:70px; height: 40px;" src="{{asset($item->property_thumbnail)}}" > </td>
-                                    <td> {{ $item->status == 0 ?   '<span class="badge rounded-pill bg-danger">Inactive"</span>' : '<span class="badge rounded-pill bg-sucess"> Active </span>' }}</td>
+                                    <td> <img style="width:70px; height: 40px; border-radius:0;" src="{{asset($item->property_thumbnail)}}" > </td>
+                                    <td>@if($item->status == 0)
+                                            <span class="badge rounded-pill bg-danger">Inactive"</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-sucess"> Active </span>
+                                    @endif
+                                        {{ $item->status = 0 ?   `<span class="badge rounded-pill bg-sucess"> Active </span>` : `<span class="badge rounded-pill bg-danger">Inactive"</span>` }}
+                                    </td>
                                     <td>
 
                                         <a href="{{ route('edit.listing', ['slug' => $item->slug, 'id' => $item->id]) }}" class="btn btn-info">View</a>
