@@ -26,6 +26,7 @@
                                     <th>City</th>
                                     <th>State</th>
                                     <th>Thumbnail</th>
+                                    <th>Code</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -35,17 +36,16 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{$item->property_name}}</td>
-                                    <td>{{ $item->ptype_id}}</td>
+                                    <td>{{ $item['property_type']['type_name']}}</td>
                                     <td>For {{$item->property_status}}</td>
                                     <td>{{$item->city}}</td>
                                     <td>{{$item->state}}</td>
                                     <td> <img style="width:70px; height: 40px; border-radius:0;" src="{{asset($item->property_thumbnail)}}" > </td>
-                                    <td>@if($item->status == 0)
-                                            <span class="badge rounded-pill bg-danger">Inactive"</span>
-                                        @else
-                                            <span class="badge rounded-pill bg-sucess"> Active </span>
-                                    @endif
-                                        {{ $item->status = 0 ?   `<span class="badge rounded-pill bg-sucess"> Active </span>` : `<span class="badge rounded-pill bg-danger">Inactive"</span>` }}
+                                    <td>{{$item->property_code}}</td>
+                                    <td>
+
+                                            {!! $item->status == 1 ? '<span class="badge rounded-pill bg-success">Active</span>' : '<span class="badge rounded-pill bg-danger">Inactive</span>' !!}
+
                                     </td>
                                     <td>
 

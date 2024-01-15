@@ -10,9 +10,9 @@ class Listing extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function property_types()
+    public function property_type()
     {
-        return $this->hasOne(PropertyType::class);
-//        return $this->belongsTo(PropertyType::class, 'property_types', 'type_name');
+        return $this->belongsTo(PropertyType::class,'ptype_id','id');
+
     }
 }

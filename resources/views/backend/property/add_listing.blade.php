@@ -101,13 +101,20 @@
                                         <div class="form-group mb-3">
                                             <label  class="form-label">Garage</label>
                                             <input type="text" name="garage" placeholder="double" class="form-control">
+
                                         </div>
 
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group mb-3">
                                             <label  class="form-label">Garage Size</label>
-                                            <input type="text" name="garage_size" placeholder="2" class="form-control">
+                                            <div class="input-group">
+                                                <input type="text" name="garage_size" placeholder="2" class="form-control">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">sqft</span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -403,7 +410,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="distance">Distance</label>
-                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
+                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (mi)">
                         </div>
                         <div class="form-group col-md-4" style="padding-top: 20px">
                             <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle"></i> Add</span>
