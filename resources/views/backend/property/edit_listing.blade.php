@@ -18,6 +18,7 @@
                                 @csrf
 
                                 <input type="hidden" name="id" value="{{$listing->id}}" >
+
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
@@ -64,9 +65,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
 
-                                </div>
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group mb-3">
@@ -187,7 +186,7 @@
                                             <select name="agent_id" id="exampleFormControlSelect1" class="form-select">
                                                 <option selected disabled> Select Agent</option>
                                                 @foreach($active_agent as $key => $item)
-                                                    <option value="{{$key}}" {{$listing->agent_id == $key ? 'selected' : ''}} class="">{{$item->name}}</option>
+                                                    <option value="{{$item->id}}" {{$listing->agent_id == $key ? 'selected' : ''}} class="">{{$item->name}}</option>
                                                 @endforeach
 
                                             </select>
@@ -198,8 +197,8 @@
                                             <label  class="form-label">Property Type</label>
                                             <select name="property_type" id="exampleFormControlSelect1" class="form-select">
                                                 <option selected disabled> Select Property Type</option>
-                                                @foreach($type as $key => $item)
-                                                    <option value="{{$key}}" {{$listing->ptype_id == $key ? 'selected' : ''}} class="">{{$item->type_name}}</option>
+                                                @foreach($type as $ptype)
+                                                    <option value="{{ $ptype->id }}" {{$listing->ptype_id == ($ptype->id) ? 'selected' : ''}} class="">{{$ptype->type_name}} </option>
                                                 @endforeach
 
                                             </select>
@@ -229,9 +228,7 @@
                                             <div class="form-group mb-3 card">
                                                 <div class="card-body">
                                                     <label  class="form-label card-title">Short Description</label>
-                                                    <textarea name="short_desc" id="maxlength-textarea" class="form-control resize-none" maxlength="100" rows="4" style="resize: none"  >
-                                                        {{$listing->short_desc}}
-                                                    </textarea>
+                                                    <textarea name="short_desc" id="maxlength-textarea" class="form-control resize-none" maxlength="100" rows="4" style="resize: none"  >{{$listing->short_desc}}</textarea>
                                                 </div></div>
                                         </div>
 
@@ -284,7 +281,7 @@
 
 
 
-                                        <div class="col-12" style=" display: flex; justify-content: flex-end; align-content: end">
+                                        <div class="col-12 mb-3" style=" display: flex; justify-content: flex-end; align-content: end">
                                             <button type="submit" class="btn btn-primary btn-lg " style="width: 200px;height: 50px; font-family: 'Poppins', serif;">Save Property</button>
                                         </div>
                                     </div>
@@ -298,13 +295,279 @@
 
 
 
+                                </div>
                             </form>
+                            <div class="row" style=";">
+                                {{--                                        Property Main Thumbnail Image Update--}}
+                                <div class="page-content" style="margin-top: -20px; ">
+                                    <div class="col-md-12 col-xl-12 middle-wrapper" >
+                                        <div class=" col-sm-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Edit Thumbnail</h6>
+                                                    <form method="post" action="{{route('update.listing.thumbnail')}}" id="myForm" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $listing->id }}">
+
+                                                        <input type="hidden" name="old_img" value="{{ $listing->property_thumbnail }}">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group mb-3">
+                                                                <label  class="form-label">Main Thumbnail</label>
+                                                                <input type="file" id="image" name="property_thumbnail" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label"></label>
+                                                                <img class="wd-80 " id="showImage" src="{{ (!empty($thumbnail->property_thumbnail)) ? url('upload/listing/'.$thumbnail->property_thumbnail) :  asset($listing->property_thumbnail)  }}" alt="" >
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm " style=" font-family: 'Poppins', serif;">Save Thumbnail</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                                {{--                                    Property Multi Images Update--}}
+
+                                    <div class="page-content">
+                                        <div class="col-md-12 col-xl-12 middle-wrapper" style="">
+                                            <div class="col-sm-12">
+                                                <div class=" col-sm-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">Edit Images</h6>
+                                                            <form method="post" action="{{route('update.listing.images')}}" id="myForm" enctype="multipart/form-data">
+                                                                @csrf
+
+                                                                <div class="table-responsive mb-3">
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Serial</th>
+                                                                            <th>Image</th>
+                                                                            <th>Change Image</th>
+                                                                            <th>Actions</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        @foreach($multiImage as $key => $img)
+                                                                            <tr>
+                                                                                <td class="py-1">
+                                                                                  {{$key+1}}
+                                                                                </td>
+                                                                                <td><img class="rounded-0" style="width: 200px; height: 100px;" src="{{ asset($img->photo_name) }}" alt="image"> </td>
+                                                                                <td>
+                                                                                    <div class="">
+                                                                                        <input type="file" multiple name="multi_img[{{ $img->id }}]" id="multiImg" class="form-control" >
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="submit" class="btn btn-lg btn-info px-4" value="Update">
+                                                                                    <a href="{{ route('listing.delete.images', $img->id) }}" class="btn btn-danger " id="delete">Delete</a>
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        @endforeach
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </form>
+                                                            <div class="flex">
+                                                                <form method="post" action="{{route('store.new.images')}}" id="myForm" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <input type="hidden" name="image_id" value="{{ $listing->id }}">
+                                                                    <table class="table table-striped">
+                                                                        <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="file" class="form-control" name="multi_img">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="submit"
+                                                                                   class="btn btn-primary px-4" value="Save Image">
+                                                                        </td>
+                                                                    </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="mb-3 row" id="preview_img">
+
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row" style="margin-top: -400px">
+                                {{--                                        Property Main Thumbnail Image Update--}}
+                                <div class="page-content" style="">
+                                    <div class="col-md-12 col-xl-12 middle-wrapper" >
+                                        <div class=" col-sm-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Edit Thumbnail</h6>
+                                                    <form method="post" action="{{route('update.listing.thumbnail')}}" id="myForm" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $listing->id }}">
+
+                                                        <input type="hidden" name="old_img" value="{{ $listing->property_thumbnail }}">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group mb-3">
+                                                                <label  class="form-label">Main Thumbnail</label>
+                                                                <input type="file" id="image" name="property_thumbnail" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label"></label>
+                                                                <img class="wd-80 " id="showImage" src="{{ (!empty($thumbnail->property_thumbnail)) ? url('upload/listing/'.$thumbnail->property_thumbnail) :  asset($listing->property_thumbnail)  }}" alt="" >
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm " style=" font-family: 'Poppins', serif;">Save Thumbnail</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                                {{--                                    Property Multi Images Update--}}
+
+                                <div class="page-content">
+                                    <div class="col-md-12 col-xl-12 middle-wrapper" style="">
+                                        <div class="col-sm-12">
+                                            <div class=" col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Edit Listing Facilities</h6>
+                                                        <form method="post" action="{{route('update.listing.facilities')}}" id="myForm" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$listing->id}}">
+                                                            @foreach($facilities as $item )
+                                                                <div class="row add_item">
+                                                                <div class="row add_item whole_extra_item_add" id="whole_extra_item_add">
+                                                            <div class="row add_item whole_extra_item_delete" id="whole_extra_item_delete">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="facility_name" class="form-label">Facilities </label>
+                                                                        <select name="facility_name[]" id="facility_name" class="form-control">
+                                                                            <option value="">Select Facility</option>
+                                                                            <option value="Hospital" {{$item->facility_name == 'Hospital' ? ' selected' : ''}}>Hospital</option>
+                                                                            <option value="SuperMarket" {{$item->facility_name == 'SuperMarket' ? ' selected' : ''}}>Super Market</option>
+                                                                            <option value="School" {{$item->facility_name == 'School' ? ' selected' : ''}}>School</option>
+                                                                            <option value="Entertainment" {{$item->facility_name == 'Entertainment' ? ' selected' : ''}}>Entertainment</option>
+                                                                            <option value="Pharmacy" {{$item->facility_name == 'Pharmacy' ? ' selected' : ''}}>Pharmacy</option>
+                                                                            <option value="Airport" {{$item->facility_name == 'Airport' ? ' selected' : ''}}>Airport</option>
+                                                                            <option value="Railways" {{$item->facility_name == 'Railways' ? ' selected' : ''}}>Railways</option>
+                                                                            <option value="Bus Stop" {{$item->facility_name == 'Bus Stop' ? ' selected' : ''}}>Bus Stop</option>
+                                                                            <option value="Beach" {{$item->facility_name == 'Beach' ? ' selected' : ''}}>Beach</option>
+                                                                            <option value="Mall" {{$item->facility_name == 'Mall' ? ' selected' : ''}}>Mall</option>
+                                                                            <option value="Bank" {{$item->facility_name == 'Bank' ? ' selected' : ''}}>Bank</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="distance" class="form-label"> Distance </label>
+                                                                        <input type="text" name="distance[]" id="distance" class="form-control" value="{{$item->distance}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-4" style="padding-top: 30px;">
+
+                                                                    <span class="btn btn-success addeventmore"><i class="fa rounded-circle fa-plus"></i> </span>
+                                                                    <span class="btn btn-danger removeeventmore"><i class="fa rounded-circle fa-minus"></i> </span>
+                                                                </div>
+                                                            </div>
+                                                                </div><!---end row-->
+                                                                </div>
+                                                            @endforeach
+                                                            <button type="submit" class="btn btn-primary btn-lg " style="width: 200px;height: 50px; font-family: 'Poppins', serif;">Save Changes</button>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{{--    Facilities--}}
+
+{{--    End Facilities--}}
+    <!--========== Start of add multiple class with ajax ==============-->
+    <div style="visibility: hidden">
+        <div class="whole_extra_item_add" id="whole_extra_item_add">
+            <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                <div class="container mt-2">
+                    <div class="row">
+
+                        <div class="form-group col-md-4">
+                            <label for="facility_name">Facilities</label>
+                            <select name="facility_name[]" id="facility_name" class="form-control">
+                                <option value="">Select Facility</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="SuperMarket">Super Market</option>
+                                <option value="School">School</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Pharmacy">Pharmacy</option>
+                                <option value="Airport">Airport</option>
+                                <option value="Railways">Railways</option>
+                                <option value="Bus Stop">Bus Stop</option>
+                                <option value="Beach">Beach</option>
+                                <option value="Mall">Mall</option>
+                                <option value="Bank">Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="distance">Distance</label>
+                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (mi)">
+                        </div>
+                        <div class="form-group col-md-4" style="padding-top: 20px">
+                            <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle"></i> Add</span>
+                            <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle"></i> Remove</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!----For Section-------->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var counter = 0;
+            $(document).on("click",".addeventmore",function(){
+                var whole_extra_item_add = $("#whole_extra_item_add").html();
+                $(this).closest(".add_item").append(whole_extra_item_add);
+                counter++;
+            });
+            $(document).on("click",".removeeventmore",function(event){
+                $(this).closest("#whole_extra_item_delete").remove();
+                counter -= 1
+            });
+        });
+    </script>
+    <!--========== End of add multiple class with ajax ==============-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(function(){

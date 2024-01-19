@@ -49,10 +49,10 @@
                                     </td>
                                     <td>
 
-                                        <a href="{{ route('edit.listing', ['slug' => $item->slug, 'id' => $item->id]) }}" class="btn btn-info">View</a>
-                                        <a href="{{ route('edit.listing', $item->id) }}" class="btn btn-warning">Edit</a>
+                                        <a href="{{ route('view.listing', $item->id) }}" class="btn btn-info" title='View'><i data-feather="eye"></i></a>
+                                        <a href="{{ route('edit.listing', $item->id) }}" class="btn btn-warning" title='Edit'><i data-feather="edit"></i></a>
 
-                                        <a href="{{ route('delete.listing', $item->id) }}" id="delete" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('delete.listing', $item->id) }}" id="delete" class="btn btn-danger" title='Delete'><i data-feather="trash-2"></i></a>
                                     </td>
 
                                 </tr>

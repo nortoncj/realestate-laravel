@@ -136,6 +136,7 @@
                                             <label  class="form-label" for="state">State</label>
                                             <select type="text" id='state' name="state" class="form-control">
                                                 <option value="FL" @selected(old('version') == 'FL')>Florida</option>
+                                                <option value="FL" @selected(old('version') == 'NY')>New York</option>
                                             </select>
                                         </div>
                                     </div>
@@ -204,7 +205,7 @@
                                             <select name="agent_id" id="exampleFormControlSelect1" class="form-select">
                                                 <option selected disabled> Select Agent</option>
                                                 @foreach($active_agent as $key => $item)
-                                                    <option value="{{$key}}" class="">{{$item->name}}</option>
+                                                    <option value="{{$item->id}}" class=""> {{$item->name}} </option>
                                                 @endforeach
 
                                             </select>
@@ -215,8 +216,8 @@
                                             <label  class="form-label">Property Type</label>
                                             <select name="property_type" id="exampleFormControlSelect1" class="form-select">
                                                 <option selected disabled> Select Property Type</option>
-                                                @foreach($type as $key => $item)
-                                                    <option value="{{$key}}" class="">{{$item->type_name}}</option>
+                                                @foreach($type as $ptype)
+                                                    <option value="{{$ptype->id}}" class="">{{$ptype->type_name}}</option>
                                                 @endforeach
 
                                             </select>
@@ -421,8 +422,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!----For Section-------->
     <script type="text/javascript">
