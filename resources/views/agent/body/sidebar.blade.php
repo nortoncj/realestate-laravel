@@ -1,3 +1,10 @@
+@php
+    $id = Auth::user()->id;
+    $agentId = App\Models\User::find($id);
+    $status = $agentId->status;
+@endphp
+
+
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
@@ -18,6 +25,7 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
+            @if($status === 'active')
             <li class="nav-item nav-category">Real Estate</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false" aria-controls="emails">
@@ -110,7 +118,8 @@
             </li>
 
 
-
+@else
+            @endif
             <li class="nav-item nav-category">Docs</li>
             <li class="nav-item">
                 <a href="https://www.nobleui.com/html/documentation/docs.html" target="_blank" class="nav-link">

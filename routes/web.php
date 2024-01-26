@@ -169,8 +169,8 @@ Route::middleware(['auth','role:admin'])->group(function() {
         Route::get('/edit/agent/{id}','EditAgent')->name('edit.agent');
         Route::post('/update/agent','UpdateAgent')->name('update.agent');
         Route::get('/delete/agent/{id}','DeleteAgent')->name('delete.agent');
-        Route::post('/deactivate/agent','DeactivateAgent')->name('deactivate.agent');
-        Route::post('/activate/agent','ActivateAgent')->name('activate.agent');
+        Route::get('/changeStatus','ChangeStatus');
+
     });
 
     // Permissions All Routes

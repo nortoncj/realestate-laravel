@@ -126,7 +126,7 @@
             <li class="nav-item nav-category">User Functions</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#agents" role="button" aria-expanded="false" aria-controls="agents">
-                    <i class="link-icon" data-feather="feather"></i>
+                    <i class="link-icon" data-feather="user"></i>
                     <span class="link-title">Manage Agents</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
