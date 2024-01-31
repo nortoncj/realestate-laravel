@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
@@ -17,11 +17,12 @@ use App\Helper\Helper;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Auth;
 
 
 
 
-class PropertyController extends Controller
+class AgentPropertyController extends Controller
 {
 
     public function property_types()
@@ -32,25 +33,24 @@ class PropertyController extends Controller
     {
         return $this->hasOne(UserController::class);
     }
-    public function AllListing()
+    public function AgentAllListing()
     {
-        $listing = Listing::latest()->get();
-//        $property_types = PropertyType::latest()->get();
+        $id = Auth::user()->id;
+        $listing = Listing::where('agent_id',$id)->latest()->get();
 
-        return view('backend.property.all_listing', compact('listing'));
+        return view('agent.property.all_listing', compact('listing'));
     }// End Method
 
 
-    public function AddListing()
+    public function AgentAddListing()
     {
         $type = PropertyType::latest()->get();
         $status = Status::latest()->get();
-        $active_agent = User::where('status','active')->where('role','agent')->latest()->get();
         $amenity = Amenities::latest()->get();
-        return view('backend.property.add_listing', compact('status','amenity','type','active_agent'));
+        return view('agent.property.add_listing', compact('status','amenity','type'));
     }// End Method
 
-    public function StoreListing(Request $request)
+    public function AgentStoreListing(Request $request)
     {
 
         if($request->file('property_thumbnail')){
@@ -97,12 +97,12 @@ class PropertyController extends Controller
                 'longitude'  => $request->longitude,
                 'is_featured'  => $request->is_featured,
                 'is_hot'  => $request->is_hot,
-                'agent_id'  => $request->agent_id,
+                'agent_id'  => Auth::user()->id,
                 'status'  => 1,
                 'created_at'  => Carbon::now(),
 
 
-        ]);
+            ]);
 
         }
 
@@ -116,7 +116,7 @@ class PropertyController extends Controller
 
             foreach($image as $img) {
                 $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-               $make_img = $manager->read($img);
+                $make_img = $manager->read($img);
                 $make_img = $make_img->resize(770,520);
 
                 $make_img->toJpeg(80)->save(base_path('public/upload/listing/multi-image/'.$make_name));
@@ -152,11 +152,11 @@ class PropertyController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('all.listing')->with($notification);
+        return redirect()->route('agent.all.listing')->with($notification);
 
     }// End Method
 
-    public function EditListing($id)
+    public function AgentEditListing($id)
     {
         $facilities = Facility::where('property_id',$id)->get();
         $listing = Listing::findOrFail($id);
@@ -166,14 +166,14 @@ class PropertyController extends Controller
 
         $multiImage = MultiImage::where('property_id',$id)->get();
 
-       $amenity = Amenities::latest()->get();
+        $amenity = Amenities::latest()->get();
         $amenity_type = $listing->amenities_id;
         $amenities = explode(',', $amenity_type);
-        return view('backend.property.edit_listing', compact('listing','type','status','active_agent','amenity','amenities','multiImage','facilities'));
+        return view('agent.property.edit_listing', compact('listing','type','status','active_agent','amenity','amenities','multiImage','facilities'));
 
     }// End Method
 
-    public function UpdateListing(Request $request)
+    public function AgentUpdateListing(Request $request)
     {
         $amen = $request->amenities_id;
         $amenities = implode(",", $amen);
@@ -206,7 +206,7 @@ class PropertyController extends Controller
             'longitude'  => $request->longitude,
             'is_featured'  => $request->is_featured,
             'is_hot'  => $request->is_hot,
-            'agent_id'  => $request->agent_id,
+            'agent_id'  => Auth::user()->id,
             'updated_at'  => Carbon::now(),
         ]);
 
@@ -216,10 +216,10 @@ class PropertyController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('all.listing')->with($notification);
+        return redirect()->route('agent.all.listing')->with($notification);
     }// End Method
 
-    public function UpdateThumbnail(Request $request){
+    public function AgentUpdateThumbnail(Request $request){
         $pro_id = $request->id;
         $oldImage = $request->old_img;
 
@@ -254,14 +254,14 @@ class PropertyController extends Controller
 
     } // End Method
 
-    public function UpdateImages(Request $request){
+    public function AgentUpdateImages(Request $request){
         $manager = new ImageManager(new Driver());
         $imgs = $request->multi_img;
 
         foreach($imgs as $id => $img){
             // Delete Old Image
             $imgDel = MultiImage::findOrFail($id);
-                unlink($imgDel->photo_name);
+            unlink($imgDel->photo_name);
 
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
             $make_img = $manager->read($img);
@@ -285,7 +285,7 @@ class PropertyController extends Controller
 
     } // End Method
 
-    public function DeleteImages($id)
+    public function AgentDeleteImages($id)
     {
         $oldImg = MultiImage::findOrFail($id);
         unlink($oldImg->photo_name);
@@ -300,7 +300,7 @@ class PropertyController extends Controller
         return redirect()->back()->with($notification);
     }// End Method
 
-    public function StoreNewImages(Request $request){
+    public function AgentStoreNewImages(Request $request){
         $manager = new ImageManager(new Driver());
         $new_multi = $request->image_id;
         $image = $request->file('multi_img');
@@ -326,7 +326,7 @@ class PropertyController extends Controller
         return redirect()->back()->with($notification);
     } // End Method
 
-    public function UpdateFacility(Request $request){
+    public function AgentUpdateFacility(Request $request){
         $pid = $request->id;
 
         $facilities= Count($request->facility_name);
@@ -347,16 +347,16 @@ class PropertyController extends Controller
         }
 
 
-            $notification = array(
-                'message' => 'Property Listing Facilities Updated!',
-                'alert-type' => 'success');
+        $notification = array(
+            'message' => 'Property Listing Facilities Updated!',
+            'alert-type' => 'success');
 
 
-            return redirect()->back()->with($notification);
+        return redirect()->back()->with($notification);
 
     } // End Method
 
-    public function DeleteListing($id)
+    public function AgentDeleteListing($id)
     {
         $listing = Listing::findOrFail($id);
         unlink($listing->property_thumbnail);
@@ -384,58 +384,24 @@ class PropertyController extends Controller
         return redirect()->back()->with($notification);
     }// End Method
 
-    public function DetailsListing($id)
+    public function AgentDetailsListing($id)
     {
         $facilities = Facility::where('property_id',$id)->get();
         $listing = Listing::findOrFail($id);
         $type = PropertyType::latest()->get();
         $status = Status::latest()->get();
-        $active_agent = User::where('status','active')->where('role','agent')->latest()->get();
+
 
         $multiImage = MultiImage::where('property_id',$id)->get();
 
         $amenity = Amenities::latest()->get();
         $amenity_type = $listing->amenities_id;
         $amenities = explode(',', $amenity_type);
-        return view('backend.property.details_listing', compact('listing','type','status','active_agent','amenity','amenities','multiImage','facilities'));
+        return view('agent.property.details_listing', compact('listing','type','status','amenity','amenities','multiImage','facilities'));
 
 
     }// End Method
-    public function DeactivateListing(Request $request)
-    {
-        $pid = $request->id;
 
-        Listing::findOrFail($pid)->update([
-            'status' => 0,
-        ]);
-
-
-        $notification = array(
-            'message' => 'Property Successfully Deactivated!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('all.listing')->with($notification);
-
-
-    }// End Method
-    public function ActivateListing(Request $request)
-    {
-        $pid = $request->id;
-
-        Listing::findOrFail($pid)->update([
-            'status' => 1,
-        ]);
-
-
-        $notification = array(
-            'message' => 'Property Successfully Activated!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('all.listing')->with($notification);
-
-    }// End Method
 
 } // End Method
 

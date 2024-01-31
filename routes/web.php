@@ -14,7 +14,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 //use App\Http\Controllers\Backend\SettingController;add
 use App\Http\Controllers\Backend\RoleController;
 
-//use App\Http\Controllers\Agent\AgentPropertyController; add
+use App\Http\Controllers\Agent\AgentPropertyController;
 //use App\Http\Controllers\Frontend\IndexController; add
 //use App\Http\Controllers\Frontend\WishListController; add
 //use App\Http\Controllers\Frontend\CompareController; add
@@ -188,6 +188,27 @@ Route::middleware(['auth','role:admin'])->group(function() {
 
 
 }); // End Admin Middleware
+
+//      Agent Routes
+Route::middleware(['auth','role:agent'])->group(function() {
+    // Property All Routes
+    Route::controller(AgentPropertyController::class)->group(function (){
+        Route::get('agent/all/listings','AgentAllListing')->name('agent.all.listing');
+        Route::get('agent/add/listings','AgentAddListing')->name('agent.add.listing');
+        Route::get('agent/view/listings/{id}','AgentDetailsListing')->name('agent.view.listing');
+        Route::post('agent/store/listings','AgentStoreListing')->name('agent.store.listing');
+        Route::post('agent/store/new/images','AgentStoreNewImages')->name('agent.store.new.images');
+
+        Route::get('agent/edit/listings/{id}','AgentEditListing')->name('agent.edit.listing');
+        Route::post('agent/update/listings','AgentUpdateListing')->name('agent.update.listing');
+        Route::post('agent/update/listings/thumbnail','AgentUpdateThumbnail')->name('agent.update.listing.thumbnail');
+        Route::post('agent/update/listings/images','AgentUpdateImages')->name('agent.update.listing.images');
+        Route::post('agent/update/listings/facilities','AgentUpdateFacility')->name('agent.update.listing.facilities');
+        Route::get('agent/delete/listings/images/{id}','AgentDeleteImages')->name('agent.listing.delete.images');
+        Route::get('agent/delete/listings/{id}','AgentDeleteListing')->name('agent.delete.listing');
+
+    });
+}); // End Agent Middleware
 
 
 Route::get('/', function () {

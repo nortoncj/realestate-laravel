@@ -36,10 +36,10 @@
                 <div class="collapse" id="property">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{route('all.listing')}}" class="nav-link">All Listing</a>
+                            <a href="{{route('agent.all.listing')}}" class="nav-link">All Listing</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('add.listing')}}" class="nav-link">Add Listing</a>
+                            <a href="{{route('agent.add.listing')}}" class="nav-link">Add Listing</a>
                         </li>
 
                     </ul>
