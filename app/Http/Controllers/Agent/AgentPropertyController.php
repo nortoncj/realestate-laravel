@@ -39,7 +39,7 @@ class AgentPropertyController extends Controller
         $listing = Listing::where('agent_id',$id)->latest()->get();
 
         return view('agent.property.all_listing', compact('listing'));
-    }// End Method
+    } // End Method
 
 
     public function AgentAddListing()
@@ -48,7 +48,7 @@ class AgentPropertyController extends Controller
         $status = Status::latest()->get();
         $amenity = Amenities::latest()->get();
         return view('agent.property.add_listing', compact('status','amenity','type'));
-    }// End Method
+    } // End Method
 
     public function AgentStoreListing(Request $request)
     {
@@ -154,7 +154,7 @@ class AgentPropertyController extends Controller
 
         return redirect()->route('agent.all.listing')->with($notification);
 
-    }// End Method
+    } // End Method
 
     public function AgentEditListing($id)
     {
@@ -171,7 +171,7 @@ class AgentPropertyController extends Controller
         $amenities = explode(',', $amenity_type);
         return view('agent.property.edit_listing', compact('listing','type','status','active_agent','amenity','amenities','multiImage','facilities'));
 
-    }// End Method
+    } // End Method
 
     public function AgentUpdateListing(Request $request)
     {
@@ -217,7 +217,7 @@ class AgentPropertyController extends Controller
         );
 
         return redirect()->route('agent.all.listing')->with($notification);
-    }// End Method
+    } // End Method
 
     public function AgentUpdateThumbnail(Request $request){
         $pro_id = $request->id;
@@ -298,7 +298,7 @@ class AgentPropertyController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }// End Method
+    } // End Method
 
     public function AgentStoreNewImages(Request $request){
         $manager = new ImageManager(new Driver());
@@ -382,7 +382,7 @@ class AgentPropertyController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }// End Method
+    } // End Method
 
     public function AgentDetailsListing($id)
     {
@@ -400,7 +400,7 @@ class AgentPropertyController extends Controller
         return view('agent.property.details_listing', compact('listing','type','status','amenity','amenities','multiImage','facilities'));
 
 
-    }// End Method
+    } // End Method
 
 
 } // End Method

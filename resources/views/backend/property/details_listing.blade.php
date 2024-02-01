@@ -136,7 +136,7 @@
                                     <td>Property Amenities</td>
                                     <td> <select name="amenities_id[]" class="js-example-basic-multiple form-select " multiple="multiple" data-width="100%" data-select2-id="4" tabindex="-1" aria-hidden="true">
                                             @foreach($amenity as $key)
-                                                <option value="{{$key->id}}" {{(in_array($key->id,$amenities)) ? 'selected' : ''}} data-select2-id="{{$key->id}}">{{$key->amenities_name}}</option>
+                                                <option value="{{$key->amenities_name}}" {{(in_array($key->amenities_name,$amenities)) ? 'selected' : ''}} data-select2-id="{{$key->id}}">{{$key->amenities_name}}</option>
                                             @endforeach
 
 
