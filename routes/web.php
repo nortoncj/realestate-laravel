@@ -208,6 +208,11 @@ Route::middleware(['auth','role:agent'])->group(function() {
         Route::get('agent/delete/listings/{id}','AgentDeleteListing')->name('agent.delete.listing');
 
     });
+
+    // Buy Package
+    Route::controller(AgentPropertyController::class)->group(function(){
+        Route::get('agent/buy/package', 'BuyPackage')->name('buy.package');
+    });
 }); // End Agent Middleware
 
 

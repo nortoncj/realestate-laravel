@@ -402,6 +402,11 @@ class AgentPropertyController extends Controller
 
     } // End Method
 
+    public function BuyPackage() {
+        $listing = Listing::latest()->get();
+        return view('agent.package.buy_package', compact('listing'));
+    } // End Method
+
 
 } // End Method
 

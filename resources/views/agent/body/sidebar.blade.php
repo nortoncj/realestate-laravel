@@ -45,7 +45,12 @@
                     </ul>
                 </div>
             </li>
-
+            <li class="nav-item">
+                <a href="{{ route('buy.package') }}" class="nav-link">
+                    <i class="link-icon" data-feather="briefcase"></i>
+                    <span class="link-title">Buy Package</span>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="pages/apps/calendar.html" class="nav-link">
