@@ -24,7 +24,8 @@
                                         <div class="card-body">
                                             <h4 class="text-center mt-3 mb-4">Basic</h4>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award text-primary icon-xxl d-block mx-auto my-3"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-                                            <h1 class="text-center"><span class="bold " style="font-weight: 600; color:red;">Free</span><br><span style="font-size: 25px;"><s ><small >$10</small></s></span>  </h1>
+                                            <h1 class="text-center"><span class="bold " style="font-weight: 600; color:red;">Free</span><br> </h1>
+
                                             <p class="text-muted text-center mb-4 fw-light">Limited</p>
                                             <h5 class="text-primary text-center mb-4">1 unit</h5>
                                             <table class="mx-auto">
@@ -73,7 +74,8 @@
                                                 </tr>
                                                 </tbody></table>
                                             <div class="d-grid">
-                                                <button class="btn btn-danger mt-4">Start free trial</button>
+                                                <a href="{{route('buy.business.plan')}}" class="btn btn-danger mt-4">Start Now</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +105,8 @@
 
                                                 </tbody></table>
                                             <div class="d-grid">
-                                                <button class="btn btn-primary mt-4">Start free trial</button>
+                                                <a href="{{route('buy.premium.plan')}}" class="btn btn-primary mt-4">Start Now</a>
+
                                             </div>
                                         </div>
                                     </div>

@@ -18,6 +18,8 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use App\Models\PackagePlan;
 
 
 
@@ -47,12 +49,29 @@ class AgentPropertyController extends Controller
         $type = PropertyType::latest()->get();
         $status = Status::latest()->get();
         $amenity = Amenities::latest()->get();
-        return view('agent.property.add_listing', compact('status','amenity','type'));
+
+        $id = Auth::user()->id;
+        $property = User::where('role','agent')->where('id',$id)->first();
+        $pcount = $property->credit;
+//        dd($pcount);
+
+        if($pcount == 1 || $pcount == 7) {
+            return redirect()->route('buy.package');
+        }
+        elseif ($pcount > 50) {
+            return view('agent.all.listings');
+        }
+        else {
+            return view('agent.property.add_listing', compact('status','amenity','type'));
+        }
+
     } // End Method
 
     public function AgentStoreListing(Request $request)
     {
-
+        $id = Auth::user()->id;
+        $uid = User::findOrFail($id);
+        $nid = $uid->credit;
         if($request->file('property_thumbnail')){
 
             $amen = $request->amenities_id;
@@ -147,6 +166,9 @@ class AgentPropertyController extends Controller
 
         }
 
+//        End Facilities
+User::where('id',$id)->update(['credit' => DB::raw('1 + ' .$nid),
+    ]);
         $notification = array(
             'message' => 'Property Listing Saved!',
             'alert-type' => 'success'
@@ -406,6 +428,68 @@ class AgentPropertyController extends Controller
         $listing = Listing::latest()->get();
         return view('agent.package.buy_package', compact('listing'));
     } // End Method
+
+    public function BuyBusinessPlan() {
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('agent.package.business_plan', compact('data'));
+    } // End Method
+
+    public function StoreBusinessPlan() {
+        $id = Auth::user()->id;
+        $uid = User::findOrFail($id);
+        $nid = $uid->credit;
+
+        PackagePlan::insert([
+            'user_id' => $id,
+            'package_name' => 'Professional',
+            'package_credits' => '3',
+            'invoice' => 'ERS'.mt_rand(10000000,99999999),
+            'package_amount'=> '20',
+            'created_at' => Carbon::now(),
+        ]);
+
+        User::where('id',$id)->update(['credit' => DB::raw('3 + ' .$nid), ]);
+
+        $notification = array(
+            'message' => 'Professional Package Purchased!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('agent.all.listing')->with($notification);
+    } // End Method
+
+    public function BuyPremiumPlan() {
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('agent.package.premium_plan', compact('data'));
+    } // End Method
+
+    public function StorePremiumPlan() {
+        $id = Auth::user()->id;
+        $uid = User::findOrFail($id);
+        $nid = $uid->credit;
+
+        PackagePlan::insert([
+            'user_id' => $id,
+            'package_name' => 'Premium',
+            'package_credits' => '10',
+            'invoice' => 'ERS'.mt_rand(10000000,99999999),
+            'package_amount'=> '50',
+            'created_at' => Carbon::now(),
+        ]);
+
+        User::where('id',$id)->update(['credit' => DB::raw('10 + ' .$nid), ]);
+
+        $notification = array(
+            'message' => 'Premium Package Purchased!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('agent.all.listing')->with($notification);
+    } // End Method
+
+
 
 
 } // End Method

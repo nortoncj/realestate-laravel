@@ -39,10 +39,6 @@ Route::get('/account/show-status', function () {
 });
 
 
-
-
-
-
 // User Routes
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //    User Profile Routes
@@ -102,8 +98,6 @@ Route::middleware(['auth','role:agent'])->group(function() {
     Route::get('agent/change/password', [AgentController::class,'AgentChangePassword'])->name('agent.change.password');
     Route::post('agent/update/password', [AgentController::class,'AgentUpdatePassword'])->name('agent.update.password');
 }); // End Agent Middleware
-
-
 
 //      Admin Routes
 Route::middleware(['auth','role:admin'])->group(function() {
@@ -211,7 +205,14 @@ Route::middleware(['auth','role:agent'])->group(function() {
 
     // Buy Package
     Route::controller(AgentPropertyController::class)->group(function(){
-        Route::get('agent/buy/package', 'BuyPackage')->name('buy.package');
+        Route::get('/buy/package', 'BuyPackage')->name('buy.package');
+        Route::get('/buy/business/plan','BuyBusinessPlan')->name('buy.business.plan');
+        Route::post('/store/business/plan','StoreBusinessPlan')->name('store.business.plan');
+
+        Route::get('/buy/premium', 'BuyPremium')->name('buy.premium');
+        Route::get('/buy/premium/plan', 'BuyPremiumPlan')->name('buy.premium.plan');
+        Route::post('/store/premium/plan','StorePremiumPlan')->name('store.premium.plan');
+
     });
 }); // End Agent Middleware
 
@@ -236,7 +237,7 @@ Route::get('/listing/{slug}/{id}', function () {
     return view('pages/single-listing');
 });
 // Show All Listings
-Route::get('/{property_type}/{listing_type}/{city}', function () {
+Route::get('properties/{property_type}/{listing_type}/{city}', function () {
     return view('pages/listings');
 
 })->name('listings');

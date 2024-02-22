@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->enum('role',['admin','agent','user'])->default('user');
             $table->enum('status',['active','inactive'])->default('active');
+            $table->string('credit')->nullable()->default('0');
             $table->rememberToken();
             $table->timestamps();
         });
